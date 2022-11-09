@@ -8,7 +8,7 @@ router.get('/', (req  , res, next) => {
   const {products} = adminData
 
   console.log(products)
-  res.render('shop', {products, docTitle: 'Shop'})
+  res.render('shop', {products, pageTitle: 'Shop'})
 })
 
 module.exports = router
