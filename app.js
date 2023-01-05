@@ -10,7 +10,7 @@ const rootDir = require('./util/path')
 const app = express()
 const PORT = 3000
 
-app.set('view engine', 'pug')
+app.set('view engine', 'ejs')
 app.use(express.static(path.join(rootDir, 'public')))
 app.use(bodyParser.urlencoded({
   extended: false,
