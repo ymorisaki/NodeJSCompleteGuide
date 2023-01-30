@@ -1,27 +1,24 @@
 const path = require('path');
+
 const express = require('express');
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
 
-const adminRoutes = require('./routes/admin')
-const shopRoutes = require('./routes/shop')
+const errorController = require('./controllers/error');
 
-const errorController = require('./controllers/error')
+const app = express();
 
-const rootDir = require('./util/path')
+app.set('view engine', 'ejs');
+app.set('views', 'views');
 
-const app = express()
-const PORT = 3000
+const adminRoutes = require('./routes/admin');
+const shopRoutes = require('./routes/shop');
 
-app.set('view engine', 'ejs')
-app.use(express.static(path.join(rootDir, 'public')))
-app.use(bodyParser.urlencoded({
-  extended: false,
-}))
-app.use(shopRoutes)
-app.use('/admin', adminRoutes)
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(errorController.get404)
+app.use('/admin', adminRoutes);
+app.use(shopRoutes);
 
-app.listen(PORT, () => {
-  console.log(`Servser listen http://localhost:${PORT}`)
-})
+app.use(errorController.get404);
+
+app.listen(3000);
